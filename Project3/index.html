@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 350px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #ff5722;
+    }
+    img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+      border: 4px solid #ff5722;
+    }
+    button {
+      background: #ff5722;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #e64a19;
+    }
+    .info {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Random User Generator</h2>
+    <img id="profilePic" src="https://via.placeholder.com/120" alt="Profile Picture">
+    <div class="info">
+      <p id="name">Name: ---</p>
+      <p id="email">Email: ---</p>
+    </div>
+    <button onclick="fetchUser()">Get Random User</button>
+  </div>
+
+  <script>
+    function fetchUser() {
+      fetch("https://randomuser.me/api/")
+        .then(response => response.json())
+        .then(data => {
+          let user = data.results[0];
+          document.getElementById("profilePic").src = user.picture.large;
+          document.getElementById("name").textContent = "Name: " + user.name.first + " " + user.name.last;
+          document.getElementById("email").textContent = "Email: " + user.email;
+        })
+        .catch(error => console.error("Error fetching user:", error));
+    }
+  </script>
+</body>
+</html>
